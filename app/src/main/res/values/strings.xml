@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">News App</string>
+
+    <string name="no_books">No news found.</string>
+    <string name="no_internet_connection">No internet connection.</string>
+    <string name="empty_search">Search query cannot be empty!</string>
+</resources>

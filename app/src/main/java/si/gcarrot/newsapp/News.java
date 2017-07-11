@@ -6,6 +6,7 @@ package si.gcarrot.newsapp;
 
 public class News {
 
+
     private String mTitle, mSection, mTrialText, mUrl, mThumbnail;
 
     public News(String Title, String Section, String trialText, String Url) {
@@ -41,5 +42,17 @@ public class News {
 
     public String getThumbnailUrl() {
         return mThumbnail;
+    }
+
+    @Override
+    public String toString() {
+        return "News{" +
+                "mTitle='" + mTitle + '\'' +
+                ", mSection='" + mSection + '\'' +
+                ", mTrialText='" + mTrialText + '\'' +
+                ", mUrl='" + mUrl + '\'' +
+                ", mUrl='" + mUrl + '\'' +
+                ", mThumbnail='" + mThumbnail + '\'' +
+                '}';
     }
 }

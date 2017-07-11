@@ -24,7 +24,9 @@ import java.util.List;
 
 public class QueryUtils {
 
-    /** Tag for the log messages */
+    /**
+     * Tag for the log messages
+     */
     private static final String LOG_TAG = QueryUtils.class.getSimpleName();
 
     private QueryUtils() {
@@ -125,7 +127,7 @@ public class QueryUtils {
 
             //Log.i(LOG_TAG, "JSON Rsponse: " + baseJsonResponse.toString());
 
-            if(baseJsonResponse.has("response")){
+            if (baseJsonResponse.has("response")) {
 
                 JSONObject response = baseJsonResponse.getJSONObject("response");
                 JSONArray newsArray = response.getJSONArray("results");
@@ -144,21 +146,21 @@ public class QueryUtils {
                     String trailText = "";
                     String thumbnailUrl = "";
 
-                    if(current.has("sectionName")){
-                        sectionName =  current.getString("sectionName") ;
+                    if (current.has("sectionName")) {
+                        sectionName = current.getString("sectionName");
                     }
 
-                    if(current.has("fields")){
+                    if (current.has("fields")) {
                         JSONObject fields = current.getJSONObject("fields");
-                        if(fields.has("trailText")){
+                        if (fields.has("trailText")) {
                             trailText = fields.getString("trailText");
                         }
-                        if(fields.has("thumbnail")){
+                        if (fields.has("thumbnail")) {
                             thumbnailUrl = fields.getString("thumbnail");
                         }
                     }
 
-                    News currentNews = new News(webTitle, sectionName, trailText,  webUrl, thumbnailUrl);
+                    News currentNews = new News(webTitle, sectionName, trailText, webUrl, thumbnailUrl);
                     news.add(currentNews);
                 }
             }
@@ -167,7 +169,7 @@ public class QueryUtils {
             Log.e(LOG_TAG, "Problem parsing the API JSON results", e);
         }
 
-        // Return the list of earthquakes
+        // Return the list
         return news;
     }
 }

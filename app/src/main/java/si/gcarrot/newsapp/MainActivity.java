@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity
                 News news = mAdapter.get(position);
 
                 String newsURL = news.getUrl();
-                
+
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(newsURL));
                 startActivity(browserIntent);
             }
@@ -128,15 +128,31 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onLoadFinished(Loader<List<News>> loader, List<News> books) {
+    public void onLoadFinished(Loader<List<News>> loader, List<News> news) {
         // Hide loading indicator because the data has been loaded
         View loadingIndicator = findViewById(R.id.loading_indicator);
         loadingIndicator.setVisibility(View.GONE);
         mAdapter.clear();
 
-        mEmptyStateTextView.setText(R.string.no_books);
-        if (books != null && !books.isEmpty()) {
-            mAdapter.addAll(books);
+
+        // Get a reference to the ConnectivityManager to check state of network connectivity
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+
+
+        // Get details on the currently active default data network
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+
+        // If there is a network connection, fetch data
+        if (networkInfo == null && !networkInfo.isConnected()) {
+            loadingIndicator.setVisibility(View.GONE);
+
+            // Update empty state with no connection error message
+            mEmptyStateTextView.setText(R.string.no_internet_connection);
+        } else if(news == null && news.isEmpty()) {
+            mEmptyStateTextView.setText(R.string.no_news);
+        } else {
+            mAdapter.addAll(news);
 
             mEmptyStateTextView.setVisibility(View.GONE);
         }
